@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="RegistroVisitasListForm">
+
+        <p:panel header="#{myBundle.ListRegistroVisitasTitle}">
+            <p:contextMenu id="RegistroVisitasDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('RegistroVisitasListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('RegistroVisitasListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('RegistroVisitasListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('RegistroVisitasListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.RegistroVisitasMenuItem_idMedico}" icon="ui-icon-search"  actionListener="#{registroVisitasController.prepareIdMedico}" update=":MedicosViewForm" oncomplete="PF('MedicosViewDialog').show()" disabled="#{empty registroVisitasController.selected.idMedico}"/>  
+                <p:menuitem value="#{myBundle.RegistroVisitasMenuItem_idPaciente}" icon="ui-icon-search"  actionListener="#{registroVisitasController.prepareIdPaciente}" update=":PacientesViewForm" oncomplete="PF('PacientesViewDialog').show()" disabled="#{empty registroVisitasController.selected.idPaciente}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{registroVisitasController.items}"
+                         lazy="false"
+                         rowKey="#{item.idVisita}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{registroVisitasController.selected}"
+                         filteredValue="#{registroVisitasController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{registroVisitasController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idVisita}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RegistroVisitasDataTableContextMenu" listener="#{registroVisitasController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:RegistroVisitasDataTableContextMenu" listener="#{registroVisitasController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{registroVisitasController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('RegistroVisitasListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idVisita}" filterBy="#{item.idVisita}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRegistroVisitasTitle_idVisita}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idVisita}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaVisita}" filterBy="#{item.fechaVisita}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRegistroVisitasTitle_fechaVisita}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaVisita}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.horaVisita}" filterBy="#{item.horaVisita}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRegistroVisitasTitle_horaVisita}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.horaVisita}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.sintomas}" filterBy="#{item.sintomas}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRegistroVisitasTitle_sintomas}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sintomas}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.medicamentoSuministrado}" filterBy="#{item.medicamentoSuministrado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRegistroVisitasTitle_medicamentoSuministrado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.medicamentoSuministrado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.recomendaciones}" filterBy="#{item.recomendaciones}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListRegistroVisitasTitle_recomendaciones}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.recomendaciones}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListRegistroVisitasTitle_estado}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.estado}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idMedico.idMedico}" filterBy="#{item.idMedico.idMedico}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListRegistroVisitasTitle_idMedico}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idMedico.idMedico}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idPaciente.idPaciente}" filterBy="#{item.idPaciente.idPaciente}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListRegistroVisitasTitle_idPaciente}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idPaciente.idPaciente}"/>
+                    </p:column>
+                </ui:remove>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{registroVisitasController.prepareCreate}" update=":RegistroVisitasCreateForm" oncomplete="PF('RegistroVisitasCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":RegistroVisitasViewForm" oncomplete="PF('RegistroVisitasViewDialog').show()" disabled="#{empty registroVisitasController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":RegistroVisitasEditForm" oncomplete="PF('RegistroVisitasEditDialog').show()" disabled="#{empty registroVisitasController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{registroVisitasController.delete}" update=":growl,datalist" disabled="#{empty registroVisitasController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

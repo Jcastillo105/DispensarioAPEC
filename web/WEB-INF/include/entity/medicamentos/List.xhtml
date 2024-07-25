@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MedicamentosListForm">
+
+        <p:panel header="#{myBundle.ListMedicamentosTitle}">
+            <p:contextMenu id="MedicamentosDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MedicamentosListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MedicamentosListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MedicamentosListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MedicamentosListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MedicamentosMenuItem_idMarca}" icon="ui-icon-search"  actionListener="#{medicamentosController.prepareIdMarca}" update=":MarcasViewForm" oncomplete="PF('MarcasViewDialog').show()" disabled="#{empty medicamentosController.selected.idMarca}"/>  
+                <p:menuitem value="#{myBundle.MedicamentosMenuItem_idTipoFarmaco}" icon="ui-icon-search"  actionListener="#{medicamentosController.prepareIdTipoFarmaco}" update=":TiposFarmacosViewForm" oncomplete="PF('TiposFarmacosViewDialog').show()" disabled="#{empty medicamentosController.selected.idTipoFarmaco}"/>  
+                <p:menuitem value="#{myBundle.MedicamentosMenuItem_idUbicacion}" icon="ui-icon-search"  actionListener="#{medicamentosController.prepareIdUbicacion}" update=":UbicacionesViewForm" oncomplete="PF('UbicacionesViewDialog').show()" disabled="#{empty medicamentosController.selected.idUbicacion}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{medicamentosController.items}"
+                         lazy="false"
+                         rowKey="#{item.idMedicamento}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{medicamentosController.selected}"
+                         filteredValue="#{medicamentosController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{medicamentosController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idMedicamento}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MedicamentosDataTableContextMenu" listener="#{medicamentosController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MedicamentosDataTableContextMenu" listener="#{medicamentosController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{medicamentosController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MedicamentosListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idMedicamento}" filterBy="#{item.idMedicamento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMedicamentosTitle_idMedicamento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idMedicamento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMedicamentosTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dosis}" filterBy="#{item.dosis}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMedicamentosTitle_dosis}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dosis}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.stock}" filterBy="#{item.stock}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMedicamentosTitle_stock}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.stock}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMedicamentosTitle_estado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idMarca.descripcion}" filterBy="#{item.idMarca.descripcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMedicamentosTitle_idMarca}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idMarca.descripcion}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idTipoFarmaco.descripcion}" filterBy="#{item.idTipoFarmaco.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListMedicamentosTitle_idTipoFarmaco}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipoFarmaco.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.idUbicacion.descripcion}" filterBy="#{item.idUbicacion.descripcion}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListMedicamentosTitle_idUbicacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idUbicacion.descripcion}"/>
+                    </p:column>
+                </ui:remove>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{medicamentosController.prepareCreate}" update=":MedicamentosCreateForm" oncomplete="PF('MedicamentosCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MedicamentosViewForm" oncomplete="PF('MedicamentosViewDialog').show()" disabled="#{empty medicamentosController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MedicamentosEditForm" oncomplete="PF('MedicamentosEditDialog').show()" disabled="#{empty medicamentosController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{medicamentosController.delete}" update=":growl,datalist" disabled="#{empty medicamentosController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

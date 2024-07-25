@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RegistroVisitasViewDlg" widgetVar="RegistroVisitasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewRegistroVisitasTitle}" closeOnEscape="true">
+
+            <h:form id="RegistroVisitasViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{registroVisitasController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_idVisita}"/>
+                        <h:outputText value="#{registroVisitasController.selected.idVisita}" title="#{myBundle.ViewRegistroVisitasTitle_idVisita}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_fechaVisita}"/>
+                        <h:outputText value="#{registroVisitasController.selected.fechaVisita}" title="#{myBundle.ViewRegistroVisitasTitle_fechaVisita}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_horaVisita}"/>
+                        <h:outputText value="#{registroVisitasController.selected.horaVisita}" title="#{myBundle.ViewRegistroVisitasTitle_horaVisita}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_sintomas}"/>
+                        <h:outputText value="#{registroVisitasController.selected.sintomas}" title="#{myBundle.ViewRegistroVisitasTitle_sintomas}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_medicamentoSuministrado}"/>
+                        <h:outputText value="#{registroVisitasController.selected.medicamentoSuministrado}" title="#{myBundle.ViewRegistroVisitasTitle_medicamentoSuministrado}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_recomendaciones}"/>
+                        <h:outputText value="#{registroVisitasController.selected.recomendaciones}" title="#{myBundle.ViewRegistroVisitasTitle_recomendaciones}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_estado}"/>
+                        <h:outputText value="#{registroVisitasController.selected.estado}" title="#{myBundle.ViewRegistroVisitasTitle_estado}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_idMedico}"/>
+                        <h:outputText value="#{registroVisitasController.selected.idMedico.idMedico}"/>
+
+                        <h:outputText value="#{myBundle.ViewRegistroVisitasLabel_idPaciente}"/>
+                        <h:outputText value="#{registroVisitasController.selected.idPaciente.idPaciente}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('RegistroVisitasViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

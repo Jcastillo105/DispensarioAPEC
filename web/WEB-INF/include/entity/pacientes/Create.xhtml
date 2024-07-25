@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PacientesCreateDlg" widgetVar="PacientesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePacientesTitle}" closeOnEscape="true">
+
+            <h:form id="PacientesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{pacientesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePacientesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{pacientesController.selected.nombre}" title="#{myBundle.CreatePacientesTitle_nombre}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_nombre}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePacientesLabel_cedula}" for="cedula" />
+                        <p:inputText id="cedula" value="#{pacientesController.selected.cedula}" title="#{myBundle.CreatePacientesTitle_cedula}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_cedula}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePacientesLabel_noCarnet}" for="noCarnet" />
+                        <p:inputText id="noCarnet" value="#{pacientesController.selected.noCarnet}" title="#{myBundle.CreatePacientesTitle_noCarnet}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_noCarnet}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePacientesLabel_tipoPaciente}" for="tipoPaciente" />
+                        <p:inputText id="tipoPaciente" value="#{pacientesController.selected.tipoPaciente}" title="#{myBundle.CreatePacientesTitle_tipoPaciente}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_tipoPaciente}" size="20" maxlength="20"/>
+
+                        <p:outputLabel value="#{myBundle.CreatePacientesLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{pacientesController.selected.estado}" title="#{myBundle.CreatePacientesTitle_estado}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_estado}" size="20" maxlength="20"/>
+                    
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pacientesController.saveNew}" value="#{myBundle.Save}" update="display,:PacientesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PacientesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PacientesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
