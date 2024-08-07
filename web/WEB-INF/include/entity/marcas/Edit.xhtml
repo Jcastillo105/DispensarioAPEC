@@ -7,13 +7,12 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="MarcasEditDlg" widgetVar="MarcasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMarcasTitle}" closeOnEscape="true">
+        <p:dialog id="MarcasEditDlg" widgetVar="MarcasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.EditMarcasTitle}" closeOnEscape="true">
 
             <h:form id="MarcasEditForm">
 
                 <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{marcasController.selected != null}">
-
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{marcasController.selected != null}">
 
                         <h:outputLabel value="#{myBundle.EditMarcasLabel_idMarca}" for="idMarca" />
                         <h:outputText id="idMarca" value="#{marcasController.selected.idMarca}" />
@@ -22,7 +21,11 @@
                         <p:inputText id="descripcion" value="#{marcasController.selected.descripcion}" title="#{myBundle.EditMarcasTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditMarcasRequiredMessage_descripcion}" size="100" maxlength="100"/>
 
                         <p:outputLabel value="#{myBundle.EditMarcasLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{marcasController.selected.estado}" title="#{myBundle.EditMarcasTitle_estado}" required="true" requiredMessage="#{myBundle.EditMarcasRequiredMessage_estado}" size="20" maxlength="20"/>
+                        <p:selectOneMenu id="estado" value="#{marcasController.selected.estado}"  required="true" requiredMessage="#{myBundle.EditMarcasRequiredMessage_estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue="" />
+                            <f:selectItem itemLabel="Disponible" itemValue="Disponible" />
+                            <f:selectItem itemLabel="Sin Unidades" itemValue="Sin Unidades" />
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{marcasController.save}" value="#{myBundle.Save}" update="display,:MarcasListForm:datalist,:MarcasListForm:MarcasDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MarcasEditDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>

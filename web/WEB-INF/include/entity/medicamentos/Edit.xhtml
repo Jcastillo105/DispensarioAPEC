@@ -27,9 +27,13 @@
                         <p:outputLabel value="#{myBundle.EditMedicamentosLabel_stock}" for="stock" />
                         <p:inputText id="stock" value="#{medicamentosController.selected.stock}" title="#{myBundle.EditMedicamentosTitle_stock}" required="true" requiredMessage="#{myBundle.EditMedicamentosRequiredMessage_stock}"/>
 
-                        <p:outputLabel value="#{myBundle.EditMedicamentosLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{medicamentosController.selected.estado}" title="#{myBundle.EditMedicamentosTitle_estado}" required="true" requiredMessage="#{myBundle.EditMedicamentosRequiredMessage_estado}" size="20" maxlength="20"/>
-
+                         <p:outputLabel value="#{myBundle.EditMedicamentosLabel_estado}" for="estado" />
+                        <p:selectOneMenu id="estado" value="#{medicamentosController.selected.estado}"  required="true" requiredMessage="#{myBundle.EditMedicamentosRequiredMessage_estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue="" />
+                            <f:selectItem itemLabel="Disponible" itemValue="Disponible" />
+                            <f:selectItem itemLabel="Sin Unidades" itemValue="Sin Unidades" />
+                        </p:selectOneMenu>
+                         
                         <p:outputLabel value="#{myBundle.EditMedicamentosLabel_idMarca}" for="idMarca" />
                         <p:selectOneMenu id="idMarca" value="#{medicamentosController.selected.idMarca}"  converter="marcasConverter">
                             <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>

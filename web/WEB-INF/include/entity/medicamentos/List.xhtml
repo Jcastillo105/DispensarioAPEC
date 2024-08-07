@@ -92,22 +92,21 @@
                     <h:outputText value="#{item.idMarca.descripcion}"/>
                 </p:column>
 
-                <ui:remove>
+               
                     <p:column sortBy="#{item.idTipoFarmaco.descripcion}" filterBy="#{item.idTipoFarmaco.descripcion}">
                         <f:facet name="header">
                             <h:outputText value="#{myBundle.ListMedicamentosTitle_idTipoFarmaco}"/>
                         </f:facet>
                         <h:outputText value="#{item.idTipoFarmaco.descripcion}"/>
                     </p:column>
-                </ui:remove>
-                <ui:remove>
+                
                     <p:column sortBy="#{item.idUbicacion.descripcion}" filterBy="#{item.idUbicacion.descripcion}">
                         <f:facet name="header">
                             <h:outputText value="#{myBundle.ListMedicamentosTitle_idUbicacion}"/>
                         </f:facet>
                         <h:outputText value="#{item.idUbicacion.descripcion}"/>
                     </p:column>
-                </ui:remove>
+                
 
             </p:dataTable>
             <h3>Exporta los datos visibles en la tabla</h3>

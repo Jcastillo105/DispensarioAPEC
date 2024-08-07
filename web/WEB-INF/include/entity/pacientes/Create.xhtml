@@ -25,11 +25,22 @@
                         <p:inputText id="noCarnet" value="#{pacientesController.selected.noCarnet}" title="#{myBundle.CreatePacientesTitle_noCarnet}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_noCarnet}" size="20" maxlength="20"/>
 
                         <p:outputLabel value="#{myBundle.CreatePacientesLabel_tipoPaciente}" for="tipoPaciente" />
-                        <p:inputText id="tipoPaciente" value="#{pacientesController.selected.tipoPaciente}" title="#{myBundle.CreatePacientesTitle_tipoPaciente}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_tipoPaciente}" size="20" maxlength="20"/>
+                        <p:selectOneMenu id="tipoPaciente" value="#{pacientesController.selected.tipoPaciente}"  required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_tipoPaciente}">
+                            <f:selectItem itemLabel="Seleccione un tipo" itemValue="" />
+                            <f:selectItem itemLabel="Estudiante" itemValue="Estudiante" />
+                            <f:selectItem itemLabel="Empleado" itemValue="Empleado" />
+                            <f:selectItem itemLabel="Profesor" itemValue="Profesor" />
+                            <f:selectItem itemLabel="Invitado" itemValue="Invitado" />
+                            <f:selectItem itemLabel="Médico" itemValue="Médico" />
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{myBundle.CreatePacientesLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{pacientesController.selected.estado}" title="#{myBundle.CreatePacientesTitle_estado}" required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_estado}" size="20" maxlength="20"/>
-                    
+                        <p:selectOneMenu id="estado" value="#{pacientesController.selected.estado}"  required="true" requiredMessage="#{myBundle.CreatePacientesRequiredMessage_estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue="" />
+                            <f:selectItem itemLabel="Activo" itemValue="Activo" />
+                            <f:selectItem itemLabel="Concluido" itemValue="Concluido" />
+                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{pacientesController.saveNew}" value="#{myBundle.Save}" update="display,:PacientesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PacientesCreateDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>

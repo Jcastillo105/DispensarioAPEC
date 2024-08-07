@@ -16,10 +16,10 @@
                     <p:panelGrid columns="2" columnClasses="column">
 
                         <p:outputLabel value="#{myBundle.CreateRegistroVisitasLabel_fechaVisita}" for="fechaVisita" />
-                        <p:calendar id="fechaVisita" pattern="MM/dd/yyyy" value="#{registroVisitasController.selected.fechaVisita}" title="#{myBundle.CreateRegistroVisitasTitle_fechaVisita}" required="true" requiredMessage="#{myBundle.CreateRegistroVisitasRequiredMessage_fechaVisita}" showOn="button"/>
+                        <p:calendar id="fechaVisita" pattern="dd/MM/yyyy" value="#{registroVisitasController.selected.fechaVisita}" title="#{myBundle.CreateRegistroVisitasTitle_fechaVisita}" required="true" requiredMessage="#{myBundle.CreateRegistroVisitasRequiredMessage_fechaVisita}" showOn="button" timeZone="GMT"/>
 
                         <p:outputLabel value="#{myBundle.CreateRegistroVisitasLabel_horaVisita}" for="horaVisita" />
-                        <p:calendar id="horaVisita" pattern="HH:mm:ss" value="#{registroVisitasController.selected.horaVisita}" title="#{myBundle.CreateRegistroVisitasTitle_horaVisita}" required="true" requiredMessage="#{myBundle.CreateRegistroVisitasRequiredMessage_horaVisita}" showOn="button"/>
+                        <p:calendar id="horaVisita" pattern="HH:mm:ss" value="#{registroVisitasController.selected.horaVisita}" title="#{myBundle.CreateRegistroVisitasTitle_horaVisita}" required="true" requiredMessage="#{myBundle.CreateRegistroVisitasRequiredMessage_horaVisita}" showOn="button" timeZone="GMT"/>
 
                         <p:outputLabel value="#{myBundle.CreateRegistroVisitasLabel_sintomas}" for="sintomas" />
                         <p:inputTextarea rows="4" cols="30" id="sintomas" value="#{registroVisitasController.selected.sintomas}" title="#{myBundle.CreateRegistroVisitasTitle_sintomas}" required="true" requiredMessage="#{myBundle.CreateRegistroVisitasRequiredMessage_sintomas}"/>
@@ -31,7 +31,11 @@
                         <p:inputTextarea rows="4" cols="30" id="recomendaciones" value="#{registroVisitasController.selected.recomendaciones}" title="#{myBundle.CreateRegistroVisitasTitle_recomendaciones}" />
 
                         <p:outputLabel value="#{myBundle.CreateRegistroVisitasLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{registroVisitasController.selected.estado}" title="#{myBundle.CreateRegistroVisitasTitle_estado}" required="true" requiredMessage="#{myBundle.CreateRegistroVisitasRequiredMessage_estado}" size="20" maxlength="20"/>
+                        <p:selectOneMenu id="estado" value="#{registroVisitasController.selected.estado}"  required="true" requiredMessage="#{myBundle.CreateRegistroVisitasRequiredMessage_estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue="" />
+                            <f:selectItem itemLabel="Activa" itemValue="Activa" />
+                            <f:selectItem itemLabel="Concluida" itemValue="Concluida" />
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{myBundle.CreateRegistroVisitasLabel_idMedico}" for="idMedico" />
                         <p:selectOneMenu id="idMedico" value="#{registroVisitasController.selected.idMedico}"  converter="medicosConverter">

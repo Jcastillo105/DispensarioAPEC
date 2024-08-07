@@ -95,30 +95,28 @@
                     <h:outputText value="#{item.recomendaciones}"/>
                 </p:column>
 
-                <ui:remove>
+          
                     <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
                         <f:facet name="header">
                             <h:outputText value="#{myBundle.ListRegistroVisitasTitle_estado}"/>
                         </f:facet>
                         <h:outputText value="#{item.estado}"/>
                     </p:column>
-                </ui:remove>
-                <ui:remove>
+                
                     <p:column sortBy="#{item.idMedico.idMedico}" filterBy="#{item.idMedico.idMedico}">
                         <f:facet name="header">
                             <h:outputText value="#{myBundle.ListRegistroVisitasTitle_idMedico}"/>
                         </f:facet>
                         <h:outputText value="#{item.idMedico.idMedico}"/>
                     </p:column>
-                </ui:remove>
-                <ui:remove>
+              
                     <p:column sortBy="#{item.idPaciente.idPaciente}" filterBy="#{item.idPaciente.idPaciente}">
                         <f:facet name="header">
                             <h:outputText value="#{myBundle.ListRegistroVisitasTitle_idPaciente}"/>
                         </f:facet>
                         <h:outputText value="#{item.idPaciente.idPaciente}"/>
                     </p:column>
-                </ui:remove>
+              
 
             </p:dataTable>
             <h3>Exporta los datos visibles en la tabla</h3>

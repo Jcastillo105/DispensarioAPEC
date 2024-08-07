@@ -7,13 +7,12 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="PacientesEditDlg" widgetVar="PacientesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPacientesTitle}" closeOnEscape="true">
+        <p:dialog id="PacientesEditDlg" widgetVar="PacientesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.EditPacientesTitle}" closeOnEscape="true">
 
             <h:form id="PacientesEditForm">
 
                 <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{pacientesController.selected != null}">
-
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{pacientesController.selected != null}">
 
                         <h:outputLabel value="#{myBundle.EditPacientesLabel_idPaciente}" for="idPaciente" />
                         <h:outputText id="idPaciente" value="#{pacientesController.selected.idPaciente}" />
@@ -28,10 +27,22 @@
                         <p:inputText id="noCarnet" value="#{pacientesController.selected.noCarnet}" title="#{myBundle.EditPacientesTitle_noCarnet}" required="true" requiredMessage="#{myBundle.EditPacientesRequiredMessage_noCarnet}" size="20" maxlength="20"/>
 
                         <p:outputLabel value="#{myBundle.EditPacientesLabel_tipoPaciente}" for="tipoPaciente" />
-                        <p:inputText id="tipoPaciente" value="#{pacientesController.selected.tipoPaciente}" title="#{myBundle.EditPacientesTitle_tipoPaciente}" required="true" requiredMessage="#{myBundle.EditPacientesRequiredMessage_tipoPaciente}" size="20" maxlength="20"/>
+                        <p:selectOneMenu id="tipoPaciente" value="#{pacientesController.selected.tipoPaciente}"  required="true" requiredMessage="#{myBundle.EditPacientesRequiredMessage_tipoPaciente}">
+                            <f:selectItem itemLabel="Seleccione un tipo" itemValue="" />
+                            <f:selectItem itemLabel="Estudiante" itemValue="Estudiante" />
+                            <f:selectItem itemLabel="Empleado" itemValue="Empleado" />
+                            <f:selectItem itemLabel="Profesor" itemValue="Profesor" />
+                            <f:selectItem itemLabel="Invitado" itemValue="Invitado" />
+                            <f:selectItem itemLabel="Médico" itemValue="Médico" />
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{myBundle.EditPacientesLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{pacientesController.selected.estado}" title="#{myBundle.EditPacientesTitle_estado}" required="true" requiredMessage="#{myBundle.EditPacientesRequiredMessage_estado}" size="20" maxlength="20"/>
+                        <p:selectOneMenu id="estado" value="#{pacientesController.selected.estado}"  required="true" requiredMessage="#{myBundle.EditPacientesRequiredMessage_estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue="" />
+                            <f:selectItem itemLabel="Activo" itemValue="Activo" />
+                            <f:selectItem itemLabel="Concluido" itemValue="Concluido" />
+                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{pacientesController.save}" value="#{myBundle.Save}" update="display,:PacientesListForm:datalist,:PacientesListForm:PacientesDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PacientesEditDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>

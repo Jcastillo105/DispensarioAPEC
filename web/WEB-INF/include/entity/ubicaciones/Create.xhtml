@@ -19,16 +19,40 @@
                         <p:inputText id="descripcion" value="#{ubicacionesController.selected.descripcion}" title="#{myBundle.CreateUbicacionesTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_descripcion}" size="100" maxlength="100"/>
 
                         <p:outputLabel value="#{myBundle.CreateUbicacionesLabel_estante}" for="estante" />
-                        <p:inputText id="estante" value="#{ubicacionesController.selected.estante}" title="#{myBundle.CreateUbicacionesTitle_estante}" required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_estante}" size="50" maxlength="50"/>
+                        <p:selectOneMenu id="estante" value="#{ubicacionesController.selected.estante}"  required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_estante}">
+                            <f:selectItem itemLabel="Seleccione un estante" itemValue="" />
+                            <f:selectItem itemLabel="Estante 1" itemValue="Estante 1" />
+                            <f:selectItem itemLabel="Estante 2" itemValue="Estante 2" />
+                            <f:selectItem itemLabel="Estante 3" itemValue="Estante 3" />
+                            <!-- Añadir más estantes según sea necesario -->
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{myBundle.CreateUbicacionesLabel_tramo}" for="tramo" />
-                        <p:inputText id="tramo" value="#{ubicacionesController.selected.tramo}" title="#{myBundle.CreateUbicacionesTitle_tramo}" required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_tramo}" size="50" maxlength="50"/>
+                        <p:selectOneMenu id="tramo" value="#{ubicacionesController.selected.tramo}"  required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_tramo}">
+                            <f:selectItem itemLabel="Seleccione un tramo" itemValue="" />
+                            <f:selectItem itemLabel="Tramo A" itemValue="Tramo A" />
+                            <f:selectItem itemLabel="Tramo B" itemValue="Tramo B" />
+                            <f:selectItem itemLabel="Tramo C" itemValue="Tramo C" />
+                            <!-- Añadir más tramos según sea necesario -->
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{myBundle.CreateUbicacionesLabel_celda}" for="celda" />
-                        <p:inputText id="celda" value="#{ubicacionesController.selected.celda}" title="#{myBundle.CreateUbicacionesTitle_celda}" required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_celda}" size="50" maxlength="50"/>
+                        <p:selectOneMenu id="celda" value="#{ubicacionesController.selected.celda}" required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_celda}">
+                            <f:selectItem itemLabel="Seleccione una celda" itemValue="" />
+                            <f:selectItem itemLabel="Celda 1" itemValue="Celda 1" />
+                            <f:selectItem itemLabel="Celda 2" itemValue="Celda 2" />
+                            <f:selectItem itemLabel="Celda 3" itemValue="Celda 3" />
+                            <!-- Añadir más celdas según sea necesario -->
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{myBundle.CreateUbicacionesLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{ubicacionesController.selected.estado}" title="#{myBundle.CreateUbicacionesTitle_estado}" required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_estado}" size="20" maxlength="20"/>
+                        <p:selectOneMenu id="estado" value="#{ubicacionesController.selected.estado}"  required="true" requiredMessage="#{myBundle.CreateUbicacionesRequiredMessage_estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue="" />
+                            <f:selectItem itemLabel="Disponible" itemValue="Disponible" />
+                            <f:selectItem itemLabel="Ocupado" itemValue="Ocupado" />
+                            <f:selectItem itemLabel="Mantenimiento" itemValue="Mantenimiento" />
+                        </p:selectOneMenu>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ubicacionesController.saveNew}" value="#{myBundle.Save}" update="display,:UbicacionesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UbicacionesCreateDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>

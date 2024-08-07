@@ -19,7 +19,11 @@
                         <p:inputText id="descripcion" value="#{marcasController.selected.descripcion}" title="#{myBundle.CreateMarcasTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateMarcasRequiredMessage_descripcion}" size="100" maxlength="100"/>
 
                         <p:outputLabel value="#{myBundle.CreateMarcasLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{marcasController.selected.estado}" title="#{myBundle.CreateMarcasTitle_estado}" required="true" requiredMessage="#{myBundle.CreateMarcasRequiredMessage_estado}" size="20" maxlength="20"/>
+                        <p:selectOneMenu id="estado" value="#{marcasController.selected.estado}"  required="true" requiredMessage="#{myBundle.CreateMarcasRequiredMessage_estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue="" />
+                            <f:selectItem itemLabel="Disponible" itemValue="Disponible" />
+                            <f:selectItem itemLabel="Sin Unidades" itemValue="Sin Unidades" />
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{marcasController.saveNew}" value="#{myBundle.Save}" update="display,:MarcasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MarcasCreateDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
