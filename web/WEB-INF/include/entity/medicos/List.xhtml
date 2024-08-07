@@ -92,6 +92,15 @@
 
 
             </p:dataTable>
+            <h3>Exporta los datos visibles en la tabla</h3>
+            <h:commandLink>
+                <p:graphicImage name="/images/Excel.jpg" width="32px" height="32px"/>
+                <p:dataExporter type="xls" target="datalist" fileName="Medicos" pageOnly="true"/>
+            </h:commandLink>
+            <h:commandLink>
+                <p:graphicImage name="/images/pdf.png" width="32px" height="32px"/>
+                <p:dataExporter type="pdf" target="datalist" fileName="Medicos" pageOnly="true" />
+            </h:commandLink>
 
             <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{medicosController.prepareCreate}" update=":MedicosCreateForm" oncomplete="PF('MedicosCreateDialog').show()"/>
             <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MedicosViewForm" oncomplete="PF('MedicosViewDialog').show()" disabled="#{empty medicosController.selected}"/>

@@ -110,7 +110,15 @@
                 </ui:remove>
 
             </p:dataTable>
-
+            <h3>Exporta los datos visibles en la tabla</h3>
+            <h:commandLink>
+                <p:graphicImage name="/images/Excel.jpg" width="32px" height="32px"/>
+                <p:dataExporter type="xls" target="datalist" fileName="Medicamentos" pageOnly="true"/>
+            </h:commandLink>
+            <h:commandLink>
+                <p:graphicImage name="/images/pdf.png" width="32px" height="32px"/>
+                <p:dataExporter type="pdf" target="datalist" fileName="Medicamentos" pageOnly="true" />
+            </h:commandLink>
             <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{medicamentosController.prepareCreate}" update=":MedicamentosCreateForm" oncomplete="PF('MedicamentosCreateDialog').show()"/>
             <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MedicamentosViewForm" oncomplete="PF('MedicamentosViewDialog').show()" disabled="#{empty medicamentosController.selected}"/>
             <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MedicamentosEditForm" oncomplete="PF('MedicamentosEditDialog').show()" disabled="#{empty medicamentosController.selected}"/>
